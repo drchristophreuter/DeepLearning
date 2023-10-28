@@ -26,3 +26,11 @@
 #define BLUE 0x001F
 #define MAGENTA 0xF81F
 #define PINK 0xF8FF
+uint16_t colors[] = {
+MAGENTA,
+BLUE,
+GREEN,
+YELLOW,
+ORANGE,
+RED
+};
