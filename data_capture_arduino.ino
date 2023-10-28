@@ -3,6 +3,6 @@
 // Die Sensordaten werden über die serielle Schnittstelle an den Linuxserver Übertragen und dort weiterverarbeitet
 #include <Wire.h>
 #include "Adafruit_AS726x.h"
-#include <Adafruit_GFX.h> 
-#include <Adafruit_ST7735.h> 
+#include <Adafruit_GFX.h> // Core graphics library
+#include <Adafruit_ST7735.h>  // Hardware-specific library
 #include <SPI.h>
