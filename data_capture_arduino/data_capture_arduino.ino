@@ -26,6 +26,20 @@ void setup() {
     Serial.println("could not connect to sensor! Please check your wiring.");
     while(1);
   }
+
+   // Daten nur senden, wenn Daten erhalten:
+  while (Serial.available() > 0)
+  {
+    int secretcode = Serial.parseInt();
+
+    // Enter/Senden gedrückt
+    if (Serial.read() == '\n')
+    { 
+     Serial.print(secretcode);
+    }
+  }
+
+
 }
 
 void loop() {
@@ -55,7 +69,7 @@ void loop() {
   Serial.print(" Yellow: "); Serial.print(sensorValues[AS726x_YELLOW]);
   Serial.print(" Orange: "); Serial.print(sensorValues[AS726x_ORANGE]);
   Serial.print(" Red: "); Serial.print(sensorValues[AS726x_RED]);
+  Serial.print("secretcode: "); Serial.print(secretcode);
   Serial.println();
   Serial.println();
 }
-// test
