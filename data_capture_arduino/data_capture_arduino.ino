@@ -10,6 +10,8 @@ Adafruit_AS726x ams;
 
 //buffer to hold raw values
 uint16_t sensorValues[AS726x_NUM_CHANNELS];
+int secretcode=0;
+int code=0;
 
 //buffer to hold calibrated values (not used by default in this example)
 //float calibratedValues[AS726x_NUM_CHANNELS];
@@ -27,18 +29,6 @@ void setup() {
     while(1);
   }
 
-   // Daten nur senden, wenn Daten erhalten:
-  while (Serial.available() > 0)
-  {
-    int secretcode = Serial.parseInt();
-
-    // Enter/Senden gedrückt
-    if (Serial.read() == '\n')
-    { 
-     Serial.print(secretcode);
-    }
-  }
-
 
 }
 
@@ -46,6 +36,14 @@ void loop() {
 
   //read the device temperature
   uint8_t temp = ams.readTemperature();
+  
+  // Sekretcode abfragen aus Terminal 
+
+    int secretcode = Serial.parseInt();
+    if (secretcode > 0) code = secretcode;
+    if (secretcode == 6) code = 0;
+  
+  
   
   //ams.drvOn(); //uncomment this if you want to use the driver LED for readings
   ams.startMeasurement(); //begin a measurement
@@ -69,7 +67,7 @@ void loop() {
   Serial.print(" Yellow: "); Serial.print(sensorValues[AS726x_YELLOW]);
   Serial.print(" Orange: "); Serial.print(sensorValues[AS726x_ORANGE]);
   Serial.print(" Red: "); Serial.print(sensorValues[AS726x_RED]);
-  Serial.print("secretcode: "); Serial.print(secretcode);
+  Serial.print("secretcode: "); Serial.print(code);
   Serial.println();
   Serial.println();
 }
