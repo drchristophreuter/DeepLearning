@@ -1,6 +1,8 @@
 // Dr. Christoph Reuter 28.10.2023
 // Die Datenerfassung erfolgt über einen Arduino Mega mit Adafruit AS7262 6-Channel Visible Light / Color Sensor Breakout
 // Die Sensordaten werden über die serielle Schnittstelle an den Linuxserver Übertragen und dort weiterverarbeitet
+// Sekretcode : 0 serös / 1 blutig / 2 gallig / 3 eitrig / 4 stuhlig 
+
 
 #include <Wire.h>
 #include "Adafruit_AS726x.h"
@@ -41,7 +43,7 @@ void loop() {
 
     int secretcode = Serial.parseInt();
     if (secretcode > 0) code = secretcode;
-    if (secretcode == 6) code = 0;
+    if (secretcode == 5) code = 0;
   
   
   
@@ -60,14 +62,14 @@ void loop() {
   ams.readRawValues(sensorValues);
   //ams.readCalibratedValues(calibratedValues);
 
-  Serial.print("Temp: "); Serial.print(temp);
-  Serial.print(" Violet: "); Serial.print(sensorValues[AS726x_VIOLET]);
-  Serial.print(" Blue: "); Serial.print(sensorValues[AS726x_BLUE]);
-  Serial.print(" Green: "); Serial.print(sensorValues[AS726x_GREEN]);
-  Serial.print(" Yellow: "); Serial.print(sensorValues[AS726x_YELLOW]);
-  Serial.print(" Orange: "); Serial.print(sensorValues[AS726x_ORANGE]);
-  Serial.print(" Red: "); Serial.print(sensorValues[AS726x_RED]);
-  Serial.print("secretcode: "); Serial.print(code);
+  //Serial.print("Temp: "); Serial.print(temp);
+  Serial.print(sensorValues[AS726x_VIOLET]); Serial.print(",") //violet
+  Serial.print(sensorValues[AS726x_BLUE]); Serial.print(",")   //blue
+  Serial.print(sensorValues[AS726x_GREEN]); Serial.print(",")  //green
+  Serial.print(sensorValues[AS726x_YELLOW]); Serial.print(",")  //yellow
+  Serial.print(sensorValues[AS726x_ORANGE]); Serial.print(",")  //orange
+  Serial.print(sensorValues[AS726x_RED]); Serial.print(",")    //red
+  Serial.print(code); //Sekretcode
   Serial.println();
-  Serial.println();
+ 
 }
